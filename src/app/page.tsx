@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, Globe, Shield, Users, Key, Database, Clock } from 'lucide-react';
 import AuthAwareButtons from '@/components/AuthAwareButtons';
 import HomePricing from "@/components/HomePricing";
-import Header from '@/components/Header';
+import Header2 from '@/components/Header2';
 import Footer from '@/components/Footer';
 
 export default function Home() {
@@ -57,7 +57,7 @@ export default function Home() {
 
   return (
       <div className="min-h-screen">
-        <Header />
+        <Header2 />
 
         <section className="relative pt-32 pb-24 overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

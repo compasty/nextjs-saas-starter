@@ -8,6 +8,12 @@ export default function Footer() {
         <footer className="bg-gray-50 border-t border-gray-200">
           <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="space-y-3">
+                <h3 className="text-lg font-semibold">{productName}</h3>
+                <p className="text-sm text-muted-foreground">
+                A platform for you to build your SaaS product.
+                </p>
+            </div>
               <div>
                 <h4 className="text-sm font-semibold text-gray-900">Product</h4>
                 <ul className="mt-4 space-y-2">
