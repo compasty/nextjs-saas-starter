@@ -11,7 +11,7 @@ Tax number: 1234567890
 
 ## 2. Introduction
 
-This Privacy Notice explains how we collect, use, disclose, and safeguard your information when you use SupaSasS services.
+This Privacy Notice explains how we collect, use, disclose, and safeguard your information when you use SupaSaaS services.
 
 ## 3. Information We Collect
 
@@ -99,5 +99,5 @@ We use cookies for:
 ## 12. Contact Information
 
 For privacy-related questions:
-Email: contact@supasass.com
+Email: contact@supasaas.com
 

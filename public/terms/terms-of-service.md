@@ -1,16 +1,16 @@
 # Terms of Service
 
-Last Updated: December 14, 2024
+Last Updated: December 14, 2025
 
 ## 1. Company Information
 
 Company Name:
 
-Tax number: 1234567890
+Tax number: 
 
 ## 2. Introduction
 
-Welcome to SupaSasS ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, applications, and services (collectively, the "Services"), including AI-powered tools, data analysis features, and subscription services.
+Welcome to SupaSaaS ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, applications, and services (collectively, the "Services"), including AI-powered tools, data analysis features, and subscription services.
 
 ## 3. Acceptance of Terms
 
@@ -98,5 +98,5 @@ These Terms shall be governed by and construed in accordance with the laws of Po
 ## 13. Contact Information
 
 For any questions about these Terms, please contact us at:
-Email: contact@supasass.com
+Email: contact@supasaas.com
 
