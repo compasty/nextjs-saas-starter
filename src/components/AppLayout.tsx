@@ -19,8 +19,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const [isUserDropdownOpen, setUserDropdownOpen] = useState(false);
     const pathname = usePathname();
     const router = useRouter();
-
-
+    
     const { user } = useGlobal();
 
     const handleLogout = async () => {
@@ -119,7 +118,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         >
                             <div className="w-8 h-8 rounded-full bg-primary-100 flex items-center justify-center">
                                 <span className="text-primary-700 font-medium">
-                                    {user ? getInitials(user.email) : '??'}
+                                    { user?.email ? getInitials(user.email) : '??'}
                                 </span>
                             </div>
                             <span>{user?.email || 'Loading...'}</span>

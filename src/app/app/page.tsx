@@ -9,9 +9,9 @@ export default function DashboardContent() {
     const { loading, user } = useGlobal();
 
     const getDaysSinceRegistration = () => {
-        if (!user?.registered_at) return 0;
+        if (!user?.created_at) return 0;
         const today = new Date();
-        const diffTime = Math.abs(today.getTime() - user.registered_at.getTime());
+        const diffTime = Math.abs(today.getTime() - new Date(user.created_at).getTime());
         return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     };
 

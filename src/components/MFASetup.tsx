@@ -3,9 +3,7 @@ import { createSPASaaSClient } from '@/lib/supabase/client';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Key, CheckCircle, XCircle, Loader2 } from 'lucide-react';
-import {Factor} from "@supabase/auth-js";
-import { MFAEnrollTOTPParams } from '@supabase/auth-js';
-
+import { type Factor, type MFAEnrollTOTPParams } from "@supabase/auth-js";
 
 interface MFASetupProps {
     onStatusChange?: () => void;

@@ -33,7 +33,7 @@ Make sure your environment variables are properly set:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-anon-key
 ```
 
 ## 4. Testing

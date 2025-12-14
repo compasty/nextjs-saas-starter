@@ -3,14 +3,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { createSPASaaSClientAuthenticated as createSPASaaSClient } from '@/lib/supabase/client';
-
-
-type User = {
-    email: string;
-    id: string;
-    registered_at: Date;
-};
-
+import { User } from "@supabase/supabase-js";
 interface GlobalContextType {
     loading: boolean;
     user: User | null;  // Add this
@@ -31,11 +24,7 @@ export function GlobalProvider({ children }: { children: React.ReactNode }) {
                 // Get user data
                 const { data: { user } } = await client.auth.getUser();
                 if (user) {
-                    setUser({
-                        email: user.email!,
-                        id: user.id,
-                        registered_at: new Date(user.created_at)
-                    });
+                    setUser(user);
                 }
 
             } catch (error) {

@@ -4,7 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { createSPASaaSClient } from '@/lib/supabase/client';
 import { CheckCircle, Smartphone } from 'lucide-react';
-import { Factor } from '@supabase/auth-js';
+import { type Factor } from '@supabase/auth-js';
 
 interface MFAVerificationProps {
     onVerified: () => void;
