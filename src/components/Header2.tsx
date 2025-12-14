@@ -62,10 +62,10 @@ export default function Header2() {
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-6">
                 <div className="flex items-center gap-6">
-                    <Link href="/" className="flex items-center space-x-2">
+                    <Link href="/" className="flex flex-1 justify-start">
                         <span className="text-xl font-bold">{process.env.NEXT_PUBLIC_PRODUCTNAME}</span>
                     </Link>
-                    <nav className="flex items-center gap-6">
+                    <nav className="flex items-center justify-center gap-6">
                         {navItems.map((item) => (
                             <Link
                                 key={item.href}
