@@ -1,13 +1,13 @@
 
-  create table "public"."profiles" (
-    "id" uuid not null,
-    "email" text not null,
-    "full_name" text,
-    "avatar_url" text,
-    "user_tier" text not null default 'basic'::text,
-    "created_at" timestamp with time zone default now(),
-    "updated_at" timestamp with time zone default now()
-      );
+create table "public"."profiles" (
+  "id" uuid not null,
+  "email" text not null,
+  "full_name" text,
+  "avatar_url" text,
+  "user_tier" text not null default 'basic'::text,
+  "created_at" timestamp with time zone default now(),
+  "updated_at" timestamp with time zone default now()
+);
 
 
 alter table "public"."profiles" enable row level security;
@@ -30,11 +30,12 @@ CREATE OR REPLACE FUNCTION public.handle_new_user()
  RETURNS trigger AS $$
 BEGIN
   -- Create profile
-  INSERT INTO public.profiles (id, email, full_name, user_tier)
+  INSERT INTO public.profiles (id, email, full_name, avatar_url, user_tier)
   VALUES (
     NEW.id,
     NEW.email,
     COALESCE(NEW.raw_user_meta_data->>'full_name', split_part(NEW.email, '@', 1)),
+    NEW.raw_user_meta_data->>'avatar_url',
     'basic'
   );
 
