@@ -14,12 +14,23 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { createSPASaaSClient } from "@/lib/supabase/client"
 import { useEffect, useState } from "react"
 import { User } from "@supabase/supabase-js"
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function Header2() {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
     const pathname = usePathname();
+    const router = useRouter();
+    
+    // 检测当前语言
+    const currentLocale = pathname.startsWith('/zh') ? 'zh' : 'en';
+    
+    // 语言切换函数
+    const switchLanguage = (newLocale: string) => {
+        // 获取当前路径并替换语言前缀
+        const newPath = pathname.replace(/^\/(en|zh)/, `/${newLocale}`) || `/${newLocale}`;
+        router.push(newPath);
+    };
 
     useEffect(() => {
         const getUser = async () => {
@@ -45,11 +56,16 @@ export default function Header2() {
         }
     }
 
-    const navItems = [
+    // 根据当前语言生成导航项
+    const navItems = currentLocale === 'zh' ? [
+        { href: "/", label: "首页" },
+        ...(user ? [{ href: "/app", label: "仪表板" }] : []),
+        { href: "/pricing", label: "价格" },
+    ] : [
         { href: "/", label: "Home" },
         ...(user ? [{ href: "/app", label: "Dashboard" }] : []),
         { href: "/pricing", label: "Pricing" },
-    ]
+    ];
 
     const getInitials = (email: string) => {
         return email
@@ -81,6 +97,25 @@ export default function Header2() {
                     </nav>
                 </div>
                 <div className="flex items-center gap-4">
+                    {/* 语言切换按钮 */}
+                    <div className="flex items-center space-x-2">
+                        <Button
+                            variant={currentLocale === 'en' ? 'default' : 'ghost'}
+                            size="sm"
+                            onClick={() => switchLanguage('en')}
+                            className="h-8 px-3 text-sm"
+                        >
+                            English
+                        </Button>
+                        <Button
+                            variant={currentLocale === 'zh' ? 'default' : 'ghost'}
+                            size="sm"
+                            onClick={() => switchLanguage('zh')}
+                            className="h-8 px-3 text-sm"
+                        >
+                            中文
+                        </Button>
+                    </div>
                     {loading ? (
                         <div className="h-8 w-8 animate-pulse rounded-full bg-muted" />
                     ) : user ? (

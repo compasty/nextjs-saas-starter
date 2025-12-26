@@ -7,6 +7,9 @@ import Link from "next/link";
 export default function AuthAwareButtons({ variant = 'primary' }) {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [loading, setLoading] = useState(true);
+    
+    // 检测当前语言
+    const currentLocale = typeof window !== 'undefined' ? (window.location.pathname.startsWith('/zh') ? 'zh' : 'en') : 'en';
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -32,21 +35,21 @@ export default function AuthAwareButtons({ variant = 'primary' }) {
     if (variant === 'nav') {
         return isAuthenticated ? (
             <Link
-                href="/app"
+                href={`/${currentLocale}/app`}
                 className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
             >
-                Go to Dashboard
+                {currentLocale === 'zh' ? '仪表板' : 'Dashboard'}
             </Link>
         ) : (
             <>
-                <Link href="/auth/login" className="text-gray-600 hover:text-gray-900">
-                    Login
+                <Link href={`/${currentLocale}/auth/login`} className="text-gray-600 hover:text-gray-900">
+                    {currentLocale === 'zh' ? '登录' : 'Login'}
                 </Link>
                 <Link
-                    href="/auth/register"
+                    href={`/${currentLocale}/auth/register`}
                     className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors"
                 >
-                    Get Started
+                    {currentLocale === 'zh' ? '注册' : 'Sign Up'}
                 </Link>
             </>
         );
@@ -55,26 +58,26 @@ export default function AuthAwareButtons({ variant = 'primary' }) {
     // Primary buttons for the hero section
     return isAuthenticated ? (
         <Link
-            href="/app"
-            className="inline-flex items-center px-6 py-3 rounded-lg bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors"
-        >
-            Go to Dashboard
-            <ArrowRight className="ml-2 h-5 w-5" />
-        </Link>
+                href={`/${currentLocale}/app`}
+                className="inline-flex items-center px-6 py-3 rounded-lg bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors"
+            >
+                {currentLocale === 'zh' ? '仪表板' : 'Dashboard'}
+                <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
     ) : (
         <>
             <Link
-                href="/auth/register"
+                href={`/${currentLocale}/auth/register`}
                 className="inline-flex items-center px-6 py-3 rounded-lg bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors"
             >
-                Start Building Free
+                {currentLocale === 'zh' ? '免费开始构建' : 'Start Building Free'}
                 <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
             <Link
                 href="#features"
                 className="inline-flex items-center px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
             >
-                Learn More
+                {currentLocale === 'zh' ? '了解更多' : 'Learn More'}
                 <ChevronRight className="ml-2 h-5 w-5" />
             </Link>
         </>

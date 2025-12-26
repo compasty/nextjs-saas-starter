@@ -1,0 +1,24 @@
+{
+  "Index": {
+    "title": "Next.js SaaS 模板",
+    "description": "使用 Next.js、Supabase 和 Tailwind CSS 构建的现代化 SaaS 模板"
+  },
+  "Header": {
+    "home": "首页",
+    "pricing": "价格",
+    "login": "登录",
+    "signup": "注册",
+    "dashboard": "仪表板",
+    "logout": "登出",
+    "language": "语言",
+    "english": "English",
+    "chinese": "中文"
+  },
+  "Footer": {
+    "rights": "保留所有权利。"
+  },
+  "Pricing": {
+    "title": "简单定价",
+    "description": "选择适合您需求的计划"
+  }
+}
