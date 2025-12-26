@@ -1,0 +1,24 @@
+{
+  "Index": {
+    "title": "Next.js SaaS Starter",
+    "description": "A modern SaaS template built with Next.js, Supabase, and Tailwind CSS"
+  },
+  "Header": {
+    "home": "Home",
+    "pricing": "Pricing",
+    "login": "Login",
+    "signup": "Sign Up",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "language": "Language",
+    "english": "English",
+    "chinese": "中文"
+  },
+  "Footer": {
+    "rights": "All rights reserved."
+  },
+  "Pricing": {
+    "title": "Simple Pricing",
+    "description": "Choose the plan that fits your needs"
+  }
+}
