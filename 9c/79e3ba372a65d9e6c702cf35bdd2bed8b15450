@@ -1,0 +1,29 @@
+eslint.config.mjs
+  s_b513d9e65f7622::t_2695aeb86ac8be 1-3,5-18
+package.json
+  h_ba51e1cc8a3656 9,44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "9c79e3ba372a65d9e6c702cf35bdd2bed8b15450",
+  "prompts": {},
+  "humans": {
+    "h_ba51e1cc8a3656": {
+      "author": "yanhuai <yanhuai@bytedance.com>"
+    }
+  },
+  "sessions": {
+    "s_b513d9e65f7622": {
+      "agent_id": {
+        "tool": "trae",
+        "id": "6a45fac47af2e286c7d1e39f",
+        "model": "gpt-5.5__dev",
+        "display_model_name": "GPT-5.5"
+      },
+      "human_author": "yanhuai <yanhuai@bytedance.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
