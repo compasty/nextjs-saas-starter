@@ -7,7 +7,7 @@ Last Updated: December 14, 2024
 This Privacy Notice applies to:
 Company Name:
 
-Tax number: 1234567890
+Tax number: 
 
 ## 2. Introduction
 
