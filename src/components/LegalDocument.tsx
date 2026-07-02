@@ -10,16 +10,23 @@ interface LegalDocumentProps {
     title: string;
 }
 
+type DocumentState =
+    | { status: 'loading'; content: string; error: null; filePath: string }
+    | { status: 'loaded'; content: string; error: null; filePath: string }
+    | { status: 'error'; content: string; error: string; filePath: string };
+
 const LegalDocument: React.FC<LegalDocumentProps> = ({ filePath, title }) => {
-    const [content, setContent] = useState('');
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [documentState, setDocumentState] = useState<DocumentState>({
+        status: 'loading',
+        content: '',
+        error: null,
+        filePath,
+    });
 
     useEffect(() => {
-        setLoading(true);
-        setError(null);
+        const controller = new AbortController();
 
-        fetch(filePath)
+        fetch(filePath, { signal: controller.signal })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to load document');
@@ -27,15 +34,23 @@ const LegalDocument: React.FC<LegalDocumentProps> = ({ filePath, title }) => {
                 return response.text();
             })
             .then(text => {
-                setContent(text);
-                setLoading(false);
+                setDocumentState({ status: 'loaded', content: text, error: null, filePath });
             })
             .catch(error => {
+                if (error instanceof DOMException && error.name === 'AbortError') return;
                 console.error('Error loading markdown:', error);
-                setError('Failed to load document. Please try again later.');
-                setLoading(false);
+                setDocumentState({
+                    status: 'error',
+                    content: '',
+                    error: 'Failed to load document. Please try again later.',
+                    filePath,
+                });
             });
+
+        return () => controller.abort();
     }, [filePath]);
+
+    const isLoading = documentState.status === 'loading' || documentState.filePath !== filePath;
 
     return (
         <Card className="w-full max-w-4xl mx-auto my-8">
@@ -43,13 +58,13 @@ const LegalDocument: React.FC<LegalDocumentProps> = ({ filePath, title }) => {
                 <h1 className="text-2xl font-bold text-center">{title}</h1>
             </CardHeader>
             <CardContent className="prose prose-blue max-w-none min-h-[200px]">
-                {loading ? (
+                {isLoading ? (
                     <div className="flex items-center justify-center h-[200px]">
                         <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
                     </div>
-                ) : error ? (
+                ) : documentState.status === 'error' ? (
                     <div className="text-center text-red-600 py-8">
-                        {error}
+                        {documentState.error}
                     </div>
                 ) : (
                     <ReactMarkdown
@@ -62,7 +77,7 @@ const LegalDocument: React.FC<LegalDocumentProps> = ({ filePath, title }) => {
                             p: ({ children }) => <p className="mb-4">{children}</p>,
                         }}
                     >
-                        {content}
+                        {documentState.content}
                     </ReactMarkdown>
                 )}
             </CardContent>

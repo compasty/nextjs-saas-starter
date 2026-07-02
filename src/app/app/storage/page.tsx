@@ -11,6 +11,7 @@ import { FileObject } from '@supabase/storage-js';
 
 export default function FileManagementPage() {
     const { user } = useGlobal();
+    const userId = user?.id;
     const [files, setFiles] = useState<FileObject[]>([]);
     const [uploading, setUploading] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -23,18 +24,14 @@ export default function FileManagementPage() {
     const [showCopiedMessage, setShowCopiedMessage] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
 
-    useEffect(() => {
-        if (user?.id) {
-            loadFiles();
-        }
-    }, [user]);
+    const loadFiles = useCallback(async () => {
+        if (!userId) return;
 
-    const loadFiles = async () => {
         try {
             setLoading(true);
             setError('');
             const supabase = await createSPASaaSClient();
-            const { data, error } = await supabase.getFiles(user!.id);
+            const { data, error } = await supabase.getFiles(userId);
 
             if (error) throw error;
             setFiles(data || []);
@@ -44,17 +41,23 @@ export default function FileManagementPage() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [userId]);
 
-    const handleFileUpload = async (file: File) => {
+    useEffect(() => {
+        if (userId) {
+            Promise.resolve().then(loadFiles);
+        }
+    }, [loadFiles, userId]);
+
+    const handleFileUpload = useCallback(async (file: File) => {
+        if (!userId) return;
+
         try {
             setUploading(true);
             setError('');
 
-            console.log(user)
-
             const supabase = await createSPASaaSClient();
-            const { error } = await supabase.uploadFile(user!.id!, file.name, file);
+            const { error } = await supabase.uploadFile(userId, file.name, file);
 
             if (error) throw error;
 
@@ -66,7 +69,7 @@ export default function FileManagementPage() {
         } finally {
             setUploading(false);
         }
-    };
+    }, [loadFiles, userId]);
 
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +89,7 @@ export default function FileManagementPage() {
         if (files.length > 0) {
             handleFileUpload(files[0]);
         }
-    }, []);
+    }, [handleFileUpload]);
 
 
     const handleDragEnter = useCallback((e: React.DragEvent) => {

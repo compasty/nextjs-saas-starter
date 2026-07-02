@@ -1,6 +1,3 @@
-'use client';
-
-import React from 'react';
 import LegalDocument from '@/components/LegalDocument';
 import { notFound } from 'next/navigation';
 
@@ -21,19 +18,22 @@ const legalDocuments = {
 
 type LegalDocument = keyof typeof legalDocuments;
 
+function isLegalDocument(document: string): document is LegalDocument {
+    return document in legalDocuments;
+}
+
 interface LegalPageProps {
-    document: LegalDocument;
-    lng: string;
+    document: string;
 }
 
 interface LegalPageParams {
     params: Promise<LegalPageProps>
 }
 
-export default function LegalPage({ params }: LegalPageParams) {
-    const {document} = React.use<LegalPageProps>(params);
+export default async function LegalPage({ params }: LegalPageParams) {
+    const { document } = await params;
 
-    if (!legalDocuments[document]) {
+    if (!isLegalDocument(document)) {
         notFound();
     }
 
