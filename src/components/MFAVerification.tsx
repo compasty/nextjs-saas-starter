@@ -1,5 +1,5 @@
 // src/components/MFAVerification.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { createSPASaaSClient } from '@/lib/supabase/client';
@@ -18,11 +18,7 @@ export function MFAVerification({ onVerified }: MFAVerificationProps) {
     const [selectedFactorId, setSelectedFactorId] = useState<string>('');
     const [loadingFactors, setLoadingFactors] = useState(true);
 
-    useEffect(() => {
-        loadFactors();
-    }, []);
-
-    const loadFactors = async () => {
+    const loadFactors = useCallback(async () => {
         try {
             const supabase = await createSPASaaSClient();
             const { data, error } = await supabase.getSupabaseClient().auth.mfa.listFactors();
@@ -43,7 +39,11 @@ export function MFAVerification({ onVerified }: MFAVerificationProps) {
         } finally {
             setLoadingFactors(false);
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        Promise.resolve().then(loadFactors);
+    }, [loadFactors]);
 
     const handleVerification = async () => {
         if (!selectedFactorId) {

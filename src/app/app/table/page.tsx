@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useGlobal } from '@/lib/context/GlobalContext';
 import {
     createSPASaaSClientAuthenticated as createSPASaaSClient
@@ -132,6 +132,7 @@ function CreateTaskDialog({ onTaskCreated }: CreateTaskDialogProps) {
 
 export default function TaskManagementPage() {
     const { user } = useGlobal();
+    const userId = user?.id;
     const [tasks, setTasks] = useState<Task[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [initialLoading, setInitialLoading] = useState<boolean>(true);
@@ -139,13 +140,9 @@ export default function TaskManagementPage() {
     const [filter, setFilter] = useState<boolean | null>(null);
     const [showConfetti, setShowConfetti] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (user?.id) {
-            loadTasks();
-        }
-    }, [filter, user?.id]);
+    const loadTasks = useCallback(async (): Promise<void> => {
+        if (!userId) return;
 
-    const loadTasks = async (): Promise<void> => {
         try {
             const isFirstLoad = initialLoading;
             if (!isFirstLoad) setLoading(true);
@@ -162,7 +159,13 @@ export default function TaskManagementPage() {
             setLoading(false);
             setInitialLoading(false);
         }
-    };
+    }, [filter, initialLoading, userId]);
+
+    useEffect(() => {
+        if (userId) {
+            Promise.resolve().then(loadTasks);
+        }
+    }, [loadTasks, userId]);
 
     const handleRemoveTask = async (id: number): Promise<void> => {
         try {

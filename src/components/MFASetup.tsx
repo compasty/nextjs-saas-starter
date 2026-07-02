@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import React, { useCallback, useState, useEffect } from 'react';
 import { createSPASaaSClient } from '@/lib/supabase/client';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -20,7 +21,7 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
     const [loading, setLoading] = useState(true);
     const [actionInProgress, setActionInProgress] = useState(false);
 
-    const fetchFactors = async () => {
+    const fetchFactors = useCallback(async () => {
         try {
             const supabase = await createSPASaaSClient();
             const { data, error } = await supabase.getSupabaseClient().auth.mfa.listFactors();
@@ -34,11 +35,11 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
             setError(err instanceof Error ? err.message : 'Failed to fetch MFA status');
             setLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
-        fetchFactors();
-    }, []);
+        Promise.resolve().then(fetchFactors);
+    }, [fetchFactors]);
 
     const startEnrollment = async () => {
         if (!friendlyName.trim()) {
@@ -229,9 +230,12 @@ export function MFASetup({ onStatusChange }: MFASetupProps) {
                     <div className="space-y-4">
                         <div className="flex justify-center">
                             {qr && (
-                                <img
+                                <Image
                                     src={qr}
                                     alt="QR Code"
+                                    width={192}
+                                    height={192}
+                                    unoptimized
                                     className="w-48 h-48 border rounded-lg p-2"
                                 />
                             )}
