@@ -40,11 +40,9 @@ export default async function LegalPage({ params }: LegalPageParams) {
     const { title, path } = legalDocuments[document];
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <LegalDocument
-                title={title}
-                filePath={path}
-            />
-        </div>
+        <LegalDocument
+            title={title}
+            filePath={path}
+        />
     );
 }

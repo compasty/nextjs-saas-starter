@@ -4,36 +4,55 @@ export interface PricingTier {
     description: string;
     features: string[];
     popular?: boolean;
+    cta: string;
+    href: string;
+    period: string;
 }
 
+export const pricingTiers: PricingTier[] = [
+    {
+        name: 'Basic',
+        price: 99,
+        description: 'Perfect for getting started',
+        features: ['14 day free trial', '30 PDF files'],
+        cta: 'Get Started',
+        href: '/auth/register',
+        period: '/month',
+    },
+    {
+        name: 'Growth',
+        price: 199,
+        description: 'Best for growing teams',
+        features: ['14 day free trial', '1000 PDF files'],
+        popular: true,
+        cta: 'Upgrade to Growth',
+        href: '/auth/register?plan=growth',
+        period: '/month',
+    },
+    {
+        name: 'Max',
+        price: 299,
+        description: 'For enterprise-grade needs',
+        features: ['14 day free trial', 'Unlimited PDF files'],
+        cta: 'Start with Max',
+        href: '/auth/register?plan=max',
+        period: '/month',
+    },
+];
+
+export const commonPricingFeatures = [
+    'SSL security',
+    'Unlimited updates',
+    'Premium support',
+];
+
 class PricingService {
-    private static tiers: PricingTier[] = [];
-
-    static initialize() {
-        const names = process.env.NEXT_PUBLIC_TIERS_NAMES?.split(',') || [];
-        const prices = process.env.NEXT_PUBLIC_TIERS_PRICES?.split(',').map(Number) || [];
-        const descriptions = process.env.NEXT_PUBLIC_TIERS_DESCRIPTIONS?.split(',') || [];
-        const features = process.env.NEXT_PUBLIC_TIERS_FEATURES?.split(',').map(f => f.split('|')) || [];
-        const popularTier = process.env.NEXT_PUBLIC_POPULAR_TIER;
-
-        this.tiers = names.map((name, index) => ({
-            name,
-            price: prices[index],
-            description: descriptions[index],
-            features: features[index] || [],
-            popular: name === popularTier
-        }));
-    }
-
     static getAllTiers(): PricingTier[] {
-        if (this.tiers.length === 0) {
-            this.initialize();
-        }
-        return this.tiers;
+        return pricingTiers;
     }
 
     static getCommonFeatures(): string[] {
-        return process.env.NEXT_PUBLIC_COMMON_FEATURES?.split(',') || [];
+        return commonPricingFeatures;
     }
 
     static formatPrice(price: number): string {

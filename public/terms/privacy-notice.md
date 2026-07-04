@@ -4,8 +4,7 @@ Last Updated: December 14, 2024
 
 ## 1. Company Information
 
-This Privacy Notice applies to:
-Company Name:
+This Privacy Notice applies to: **Company Name Here**
 
 Tax number: 
 
@@ -99,5 +98,5 @@ We use cookies for:
 ## 12. Contact Information
 
 For privacy-related questions:
-Email: contact@supasaas.com
+Email: [contact@support.com](mailto:contact@support.com)
 

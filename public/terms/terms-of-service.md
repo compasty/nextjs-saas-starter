@@ -10,7 +10,7 @@ Tax number:
 
 ## 2. Introduction
 
-Welcome to SupaSaaS ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, applications, and services (collectively, the "Services"), including AI-powered tools, data analysis features, and subscription services.
+Welcome to SaaS-Starter ("we," "our," or "us"). These Terms of Service ("Terms") govern your access to and use of our website, applications, and services (collectively, the "Services"), including AI-powered tools, data analysis features, and subscription services.
 
 ## 3. Acceptance of Terms
 
@@ -98,5 +98,5 @@ These Terms shall be governed by and construed in accordance with the laws of , 
 ## 13. Contact Information
 
 For any questions about these Terms, please contact us at:
-Email: contact@supasaas.com
+Email: [contact@support.com](mailto:contact@support.com)
 

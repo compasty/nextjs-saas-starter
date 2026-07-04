@@ -2,60 +2,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Check } from "lucide-react"
-
-const plans = [
-  {
-    name: "Basic",
-    price: "Free",
-    description: "Perfect for getting started",
-    features: [
-      "1 workspace",
-      "Up to 60 prompts",
-      "10 tool calls per day",
-      "Community support",
-      "Access to Gallery",
-    ],
-    cta: "Get Started",
-    href: "/auth/register",
-    popular: false,
-  },
-  {
-    name: "Premium",
-    price: "$9.99",
-    period: "/month",
-    description: "For power users and professionals",
-    features: [
-      "10 workspaces",
-      "Unlimited prompts",
-      "200 tool calls per day",
-      "Priority support",
-      "Advanced features",
-      "Export & backup",
-    ],
-    cta: "Upgrade to Premium",
-    href: "/auth/register?plan=premium",
-    popular: true,
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    description: "For teams and organizations",
-    features: [
-      "Unlimited workspaces",
-      "Unlimited prompts",
-      "Unlimited tool calls",
-      "Dedicated support",
-      "Custom integrations",
-      "SSO & advanced security",
-      "Custom SLA",
-    ],
-    cta: "Contact Sales",
-    href: "/contact",
-    popular: false,
-  },
-]
+import PricingService from "@/lib/pricing"
 
 export default function PricingPage() {
+  const plans = PricingService.getAllTiers()
+
   return (
     <div className="mx-auto w-full max-w-6xl px-6 py-20">
       <div className="mx-auto max-w-5xl space-y-12">
@@ -85,10 +36,10 @@ export default function PricingPage() {
                 <CardTitle className="text-2xl">{plan.name}</CardTitle>
                 <CardDescription>{plan.description}</CardDescription>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  {plan.period && (
-                    <span className="text-muted-foreground">{plan.period}</span>
-                  )}
+                  <span className="text-4xl font-bold">
+                    {PricingService.formatPrice(plan.price)}
+                  </span>
+                  <span className="text-muted-foreground">{plan.period}</span>
                 </div>
               </CardHeader>
               <CardContent className="flex flex-1 flex-col space-y-6">
